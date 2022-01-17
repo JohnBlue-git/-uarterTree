@@ -219,7 +219,7 @@ bool QuadtreeNode::InsertPoint(const Point* p) {
 		// determine which tree p belong
 		unsigned int i = QuadtreeNode::which(pt, *p);
 		// insert
-		if (pt->nextNode[i] == NULL) {
+		if (pt->nextNode[i] == 0) {
 			const Point sep = sep_point(pt, i);
 			pt->nextNode[i] = new QuadtreeNode(p, sep, pt->size / 2);
 		}
