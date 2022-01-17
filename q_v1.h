@@ -201,11 +201,11 @@ bool QuadtreeNode::InsertPoint(const Point* p) {
 		const Point* tmp_root = pt->data;
 		pt->data = 0;
 		// insert root data
-		unsigned int i = QuadtreeNode::which(pt, *tmp_root);
+		unsigned int i = which(pt, *tmp_root);
 		const Point sep_i = sep_point(pt, i);
 		pt->nextNode[i] = new QuadtreeNode(tmp_root, sep_i, pt->size / 2);
 		// insert leaf data
-		unsigned int j = QuadtreeNode::which(pt, *p);
+		unsigned int j = which(pt, *p);
 		if (i != j) {
 			const Point sep_j = sep_point(pt, j);
 			pt->nextNode[j] = new QuadtreeNode(p, sep_j, pt->size / 2);
@@ -217,7 +217,7 @@ bool QuadtreeNode::InsertPoint(const Point* p) {
 	// if root don't have data, which means( it's father root for some tree )or( tree of root not yet assigned )
 	else if (pt->data == 0) {
 		// determine which tree p belong
-		unsigned int i = QuadtreeNode::which(pt, *p);
+		unsigned int i = which(pt, *p);
 		// insert
 		if (pt->nextNode[i] == 0) {
 			const Point sep = sep_point(pt, i);
@@ -245,7 +245,7 @@ const Point& QuadtreeNode::FindClosestPoint(const Point& p) const {
 	// other
 	else if (pt->data == 0) {
 		// if it has next, then go to the next, call ... recursively
-		unsigned int i = QuadtreeNode::which(pt, p);
+		unsigned int i = which(pt, p);
 		if (pt->nextNode[i] != 0) {
 			pt = pt->nextNode[i];
 			pt->FindClosestPoint(p);
